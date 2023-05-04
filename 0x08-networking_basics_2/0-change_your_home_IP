@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# This is a script that reconfigure an ubuntu server
+
+#PATH TO YOUR HOSTS FILE
+ETC_HOSTS=/etc/hosts.new
+
+HOSTNAME_1=localhost
+
+if [ -n "$(grep $HOSTNAME_1 /etc/hosts.new)" ]
+    then
+        sudo sed -i".bak" "/$HOSTNAME_1/d" $ETC_HOSTS
+fi
