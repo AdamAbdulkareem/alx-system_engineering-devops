@@ -2,11 +2,32 @@
 # This is a script that reconfigure an ubuntu server
 
 #PATH TO YOUR HOSTS FILE
-ETC_HOSTS=/etc/hosts.new
+#nano /etc/hosts
 
-HOSTNAME_1=localhost
+#127.0.0.1 <localhost>
 
-if [ -n "$(grep $HOSTNAME_1 /etc/hosts.new)" ]
+#cp /etc/hosts /etc/hosts.bak
+
+#cp /etc/hosts /tmp/hosts.tmp
+
+#sed -i '2s/.*/127.0.0.2 localhost' /etc/hosts
+
+#service network-manager restart
+
+ETC_HOSTS=/etc/hosts
+IP="127.0.0.1"
+HOSTNAME="127.0.0.2"
+HOST_LINE="$IP\t$HOSTNAME"
+if [ -n "$(grep $HOSTNAME /etc/hosts)" ]
+then
+    echo "$HOSTNAME already exists : $(grep $HOSTNAME $ETC_HOSTS)"
+else
+    echo "Adding $HOSTNAME to your $ETC_HOSTS";
+    sudo -- sh -c -e "echo '$HOST_LINE' >> /etc/hosts";
+    if [ -n "$(grep $HOSTNAME /etc/hosts)" ]
     then
-        sudo sed -i".bak" "/$HOSTNAME_1/d" $ETC_HOSTS
+        echo "$HOSTNAME was added sucessfully \n $(grep $HOSTNAME /etc/hosts)";
+    else
+        echo "Failed to Add $HOSTNAME, try again";
+    fi
 fi
