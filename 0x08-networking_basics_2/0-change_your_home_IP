@@ -15,7 +15,7 @@
 #service network-manager restart
 
 ETC_HOSTS=/etc/hosts
-IP="127.0.0.1"
+IP="localhost"
 HOSTNAME="127.0.0.2"
 HOST_LINE="$IP\t$HOSTNAME"
 if [ -n "$(grep $HOSTNAME /etc/hosts)" ]
