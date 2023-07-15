@@ -1,20 +1,16 @@
 #!/usr/bin/env bash
-# This script configures a new Ubuntu machine
-# Update the system packages
-sudo apt update
+# Web servers are the piece of software generating and serving HTML pages, let’s install one!
 
-# Install Nginx
-sudo apt install -y nginx
+#Requirements:
 
-# Configure Nginx to listen on port 80
-sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+#Install nginx on your web-01
+#server
+#Nginx should be listening on port 80
+#When querying Nginx at its root / with a GET request (requesting a page) using curl, it must return a page that contains the string Hello World!
+#As an answer file, write a Bash script that configures a new Ubuntu machine to respect above requirements (this script will be run on the server itself)
+#You can’t use systemctl for restarting nginx
 
-# Restart Nginx by gracefully reloading the configuration
-sudo nginx -s reload
-
-# Create a temporary HTML file with the desired content
-echo "Hello World!" | sudo tee /var/www/html/index.html >/dev/null
-
-# Ensure proper ownership and permissions for the HTML file
-sudo chown www-data:www-data /var/www/html/index.html
-sudo chmod 644 /var/www/html/index.html
+apt-get -y update
+apt-get -y install nginx
+echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+service nginx start
