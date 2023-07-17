@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+docker exec -it 4926bb07d3a9 /bin/bash
+apt-get update
+apt-get install -y apache2
+service apache2 start
