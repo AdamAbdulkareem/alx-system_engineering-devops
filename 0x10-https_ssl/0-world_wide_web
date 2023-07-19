@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+if [ "$#" -lt 2 ]
+then
+    domain="$1"
+    values=("www"  "lb-01" "web-01" "web-02")
+    for value in "${values[@]}"
+    do
+        domain_info=$(dig "$value.$domain" | grep -A1 'ANSWER SECTION:')
+        record_info=$(echo "$domain_info" | awk '{print $4}' | tr -d '\n')
+        ip_info=$(echo "$domain_info" | awk '{print $5}' | tr -d '\n')
+        echo "The subdomain $value is a $record_info record and points to $ip_info"
+    done
+else
+    domain="$1"
+    subdomain="$2"
+    domain_info=$(dig "$subdomain.$domain" | grep -A1 'ANSWER SECTION:')
+    record_info=$(echo "$domain_info" | awk '{print $4}' | tr -d '\n')
+    ip_info=$(echo "$domain_info" | awk '{print $5}' | tr -d '\n')
+    echo "The subdomain $subdomain is a $record_info record and points to $ip_info"
+fi
