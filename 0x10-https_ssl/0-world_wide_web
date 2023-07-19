@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#This is a bash script that display information about subdomains
 if [ "$#" -lt 2 ]
 then
     domain="$1"
