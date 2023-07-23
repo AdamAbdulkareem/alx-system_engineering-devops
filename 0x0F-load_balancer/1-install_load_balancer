@@ -1,29 +1,39 @@
 #!/usr/bin/env bash
-# Configure Nginx so that its HTTP response contains
-# a custom header
-#
-balancer="\
-frontend haproxy_balancer
-    bind *:80
-    mode http
-    default_backend webservers
+#Install and configure HAproxy on your lb-01 server.
 
-backend webservers
-    balance roundrobin
-    server 26071-web-01 54.172.80.65:80 check
-    server 26071-web-02 52.3.240.71:80 check
-"
-# Update packages
-apt-get -y update
-apt-get -y upgrade
+#Requirements:
 
-# Add HAProxy PPA
-apt-get -y install software-properties-common
-add-apt-repository -y ppa:vbernat/haproxy-2.5
-apt-get -y update
+#Configure HAproxy so that it send traffic to web-01 and web-02
+#Distribute requests using a roundrobin algorithm
+#Make sure that HAproxy can be managed via an init script
+#Make sure that your servers are configured with the right hostnames: [STUDENT_ID]-web-01 and [STUDENT_ID]-web-02. If not, follow this tutorial.
+#For your answer file, write a Bash script that configures a new Ubuntu machine to respect above requirements
 
-# Install HAProxy
-apt-get -y install haproxy
-cp -a /etc/haproxy/haproxy.cfg{,.orig}
-echo "$balancer" >> /etc/haproxy/haproxy.cfg
-service haproxy restart
+
+sudo apt-get update
+sudo apt-get install --no-install-recommends software-properties-common
+sudo add-apt-repository ppa:vbernat/haproxy-2.6
+sudo  apt-get -y  install haproxy=2.6.\*
+
+# params
+domain_name='theakhub.tech'
+init_file='/etc/default/haproxy'
+config_file='/etc/haproxy/haproxy.cfg'
+
+
+#config
+echo "
+frontend my_bowser
+        bind *:80
+        default_backend server_side
+
+backend server_side
+        balance roundrobin
+        server 173947-web-01 54.172.80.65:80 check
+        server 173947-web-02 52.3.240.71:80 check
+
+" >> /etc/haproxy/haproxy.cfg
+
+#echo "$server_config" | sudo tee -a etc/haproxy/haproxy.cfg
+sudo sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/haproxy
+sudo service haproxy restart
