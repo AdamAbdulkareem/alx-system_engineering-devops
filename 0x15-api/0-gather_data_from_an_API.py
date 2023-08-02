@@ -1,8 +1,11 @@
 #!/usr/bin/python3
+"""Import json, requests and sys modules"""
 import json
 import requests
 import sys
 
+
+"""Implemeted the API call"""
 emp_id = sys.argv[1]
 
 # url_todos = 'https://jsonplaceholder.typicode.com/todos/{}'.format(emp_id)
