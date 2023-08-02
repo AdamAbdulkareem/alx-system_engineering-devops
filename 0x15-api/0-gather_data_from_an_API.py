@@ -28,8 +28,8 @@ todos_dict = json.loads(todos_data)
 done_task = 0
 
 for emp in todos_dict:
-    user_id = emp["userId"]
-    user_status = emp["completed"]
+    user_id = emp.get("userId")
+    user_status = emp.get("completed")
     if int(user_id) == int(emp_id) and user_status:
         done_task += 1
 
@@ -40,8 +40,8 @@ print(emp_info)
 
 
 for emp in todos_dict:
-    user_id = emp["userId"]
-    user_status = emp["completed"]
+    user_id = emp.get("userId")
+    user_status = emp.get("completed")
     if int(user_id) == int(emp_id) and user_status:
         indented_output = "\t" + emp["title"]
         print(indented_output)
