@@ -1,19 +1,22 @@
 #!/usr/bin/python3
 """This script gathers data from an API based on the employee ID provided.
 
-It uses the 'json', 'requests', and 'sys' modules to interact with the API and retrieve data.
+It uses the 'json', 'requests', and 'sys' modules to interact with the API
+and retrieve data.
 
 Usage:
     ./0-gather_data_from_an_API.py <employee_id>
 
-The script takes one argument - the employee ID - and fetches the user information and
+The script takes one argument - the employee ID -
+and fetches the user information and
 the todos for the given employee ID from the 'jsonplaceholder' API.
 
 API URLs:
     url_todos:   'https://jsonplaceholder.typicode.com/todos'
     url_user:    'https://jsonplaceholder.typicode.com/users/<employee_id>'
 
-The output shows the employee name and the list of completed tasks for the given employee.
+The output shows the employee name and the list of completed tasks
+for the given employee.
 
 Example:
     ./0-gather_data_from_an_API.py 2
@@ -39,7 +42,6 @@ if __name__ == "__main__":
     name_dict = json.loads(name_data)
     emp_name = name_dict["name"]
 
-
     # Employee todos
     todos_dict = json.loads(todos_data)
     done_task = 0
@@ -50,11 +52,10 @@ if __name__ == "__main__":
         if int(user_id) == int(emp_id) and user_status:
             done_task += 1
 
-
-    emp_info = "Employee {} is done with tasks({}/20):".format(emp_name, done_task)
+    emp_info = "Employee {} is done with tasks({}/20):".format(
+        emp_name, done_task)
 
     print(emp_info)
-
 
     for emp in todos_dict:
         user_id = emp.get("userId")
