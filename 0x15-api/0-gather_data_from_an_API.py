@@ -62,4 +62,4 @@ if __name__ == "__main__":
         user_status = emp.get("completed")
         if int(user_id) == int(emp_id) and user_status:
             indented_output = "\t" + emp["title"]
-            print(indented_output)
+            print("\t {}".format(emp["title"]))
