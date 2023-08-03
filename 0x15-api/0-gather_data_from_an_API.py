@@ -1,14 +1,31 @@
 #!/usr/bin/python3
-"""Import json, requests and sys modules"""
+"""This script gathers data from an API based on the employee ID provided.
+
+It uses the 'json', 'requests', and 'sys' modules to interact with the API and retrieve data.
+
+Usage:
+    ./0-gather_data_from_an_API.py <employee_id>
+
+The script takes one argument - the employee ID - and fetches the user information and
+the todos for the given employee ID from the 'jsonplaceholder' API.
+
+API URLs:
+    url_todos:   'https://jsonplaceholder.typicode.com/todos'
+    url_user:    'https://jsonplaceholder.typicode.com/users/<employee_id>'
+
+The output shows the employee name and the list of completed tasks for the given employee.
+
+Example:
+    ./0-gather_data_from_an_API.py 2
+"""
+
 import json
 import requests
 import sys
 
 
-"""Implemeted the API call"""
 emp_id = sys.argv[1]
 
-# url_todos = 'https://jsonplaceholder.typicode.com/todos/{}'.format(emp_id)
 url_todos = "https://jsonplaceholder.typicode.com/todos"
 url_user = "https://jsonplaceholder.typicode.com/users/{}".format(emp_id)
 
