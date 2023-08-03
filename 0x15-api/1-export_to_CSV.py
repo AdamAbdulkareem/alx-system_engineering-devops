@@ -21,7 +21,7 @@ for the given employee.
 Example:
     ./0-gather_data_from_an_API.py 2
 """
-
+import csv
 import json
 import requests
 import sys
@@ -40,26 +40,20 @@ if __name__ == "__main__":
 
     # Employee username
     name_dict = json.loads(name_data)
-    emp_name = name_dict["name"]
+    emp_name = name_dict["username"]
 
     # Employee todos
     todos_dict = json.loads(todos_data)
-    done_task = 0
-
+    csv_file_name = "{}.csv".format(emp_id)
+    data_csv = []
     for emp in todos_dict:
         user_id = emp.get("userId")
         user_status = emp.get("completed")
-        if int(user_id) == int(emp_id) and user_status:
-            done_task += 1
+        user_todos = emp.get("title")
+        if int(user_id) == int(emp_id):
+            data_csv.append([user_id, emp_name, user_status, user_todos])
 
-    emp_info = "Employee {} is done with tasks({}/20):".format(
-        emp_name, done_task)
+    with open(csv_file_name, "w", newline="") as csvfile:
+        csv_writer = csv.writer(csvfile)
 
-    print(emp_info)
-
-    for emp in todos_dict:
-        user_id = emp.get("userId")
-        user_status = emp.get("completed")
-        if int(user_id) == int(emp_id) and user_status:
-            indented_output = "\t" + emp["title"]
-            print("\t {}".format(emp["title"]))
+        csv_writer.writerows(data_csv)
