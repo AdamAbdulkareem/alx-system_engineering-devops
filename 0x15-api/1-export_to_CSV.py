@@ -51,7 +51,10 @@ if __name__ == "__main__":
         user_status = emp.get("completed")
         user_todos = emp.get("title")
         if int(user_id) == int(emp_id):
-            data_csv.append([user_id, emp_name, user_status, user_todos])
+            save_to_csv = [user_id, emp_name, user_status, user_todos]
+            formatted_save_to_csv = [f'"{item}"' for item in save_to_csv]
+
+            data_csv.append(formatted_save_to_csv)
 
     with open(csv_file_name, "w", newline="") as csvfile:
         csv_writer = csv.writer(csvfile)
