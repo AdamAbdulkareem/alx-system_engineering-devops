@@ -28,4 +28,3 @@ def top_ten(subreddit):
             print(sub["data"]["title"])
     else:
         print("None")
-
